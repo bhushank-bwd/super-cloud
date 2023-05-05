@@ -82,7 +82,7 @@ header .navbar ul a:hover {
   font-size: 20px;
   text-align: center;
 }
-.footer .ul-social li:hover {
+.footer .ul-social li:hover { 
   background: white;
   color: red;
   border-color: #fff;
