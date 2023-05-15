@@ -111,3 +111,6 @@ header .navbar ul a:hover {
   color: #fc0303;
   border: 1px solid #fc0303;
 }
+.footer h4{
+  color: #fc0303;
+}
