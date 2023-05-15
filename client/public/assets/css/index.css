@@ -101,3 +101,13 @@ header .navbar ul a:hover {
 .footer .ul-links .links-fa{
   margin-right: 10px;
 }
+.subscribe .btn-primary{
+   background-color: red;
+   border: 1px solid transparent;
+}
+.subscribe .btn-primary:hover{
+  background-color: rgb(255, 254, 254);
+  border: none;
+  color: #fc0303;
+  border: 1px solid #fc0303;
+}

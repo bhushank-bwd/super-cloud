@@ -52,31 +52,65 @@ export const Footer = () => {
           <ul className="ul-links">
             <li>
               <FontAwesomeIcon className="links-fa" icon={faCheck} />
-              Home
-            </li>
-            <li>
-              <FontAwesomeIcon className="links-fa" icon={faCheck} />
-              Marketplace
-            </li>
-            <li>
-              <FontAwesomeIcon className="links-fa"  icon={faCheck} />
-              Streaming deck
-            </li>
-            <li>
-              <FontAwesomeIcon className="links-fa" icon={faCheck} />
               QR Code
             </li>
             <li>
               <FontAwesomeIcon className="links-fa" icon={faCheck} />
-              ERP
+              Chat
+            </li>
+            <li>
+              <FontAwesomeIcon className="links-fa" icon={faCheck} />
+              Community
+            </li>
+            <li>
+              <FontAwesomeIcon className="links-fa" icon={faCheck} />
+              Wallet
             </li>
           </ul>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 services">
           <h4>Services</h4>
+          <ul className="ul-links">
+            <li>
+              <FontAwesomeIcon className="links-fa" icon={faCheck} />
+              Home
+            </li>
+            <li>
+              <FontAwesomeIcon className="links-fa" icon={faCheck} />
+              About us
+            </li>
+            <li>
+              <FontAwesomeIcon className="links-fa" icon={faCheck} />
+              Terms & Conditions
+            </li>
+            <li>
+              <FontAwesomeIcon className="links-fa" icon={faCheck} />
+              Privacy Policy
+            </li>
+            <li>
+              <FontAwesomeIcon className="links-fa" icon={faCheck} />
+              Contact us
+            </li>
+          </ul>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-3 subscribe">
           <h4>Subscribe us</h4>
+          <div class="input-group mb-3 p-2 mt-4">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="firstname@email.com"
+              aria-label="firstname@email.com"
+              aria-describedby="button-addon2"
+            />
+            <button
+              class="btn btn-primary"
+              type="button"
+              id="button-addon2"
+            >
+              Subscribe Us
+            </button>
+          </div>
         </div>
       </div>
     </div>
