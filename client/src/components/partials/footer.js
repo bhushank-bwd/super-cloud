@@ -95,16 +95,16 @@ export const Footer = () => {
         </div>
         <div className="col-md-3 subscribe">
           <h4>Subscribe us</h4>
-          <div class="input-group mb-3 p-2 mt-4">
+          <div className="input-group mb-3 p-2 mt-4">
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="firstname@email.com"
               aria-label="firstname@email.com"
               aria-describedby="button-addon2"
             />
             <button
-              class="btn btn-primary"
+              className="btn btn-primary"
               type="button"
               id="button-addon2"
             >

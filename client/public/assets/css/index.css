@@ -115,3 +115,7 @@ header .navbar ul a:hover {
 .footer h4{
   color: #fc0303;
 }
+
+.form-group{
+  margin-top: 10px;
+}
