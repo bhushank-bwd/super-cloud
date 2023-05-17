@@ -96,7 +96,8 @@ header .navbar ul a:hover {
   font-weight: 400;
 }
 .footer .ul-links li:hover{
-  color: #f0e6e6;
+  color: #fc0303;
+  font-weight: bolder;
 }
 .footer .ul-links .links-fa{
   margin-right: 10px;

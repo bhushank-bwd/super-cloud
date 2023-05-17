@@ -18,7 +18,7 @@ export const Footer = () => {
           <ul className="ul-address">
             <li>
               <b>Address: </b>Main Road Kolhapur,
-              <br /> Maharashtra,416005
+              <br /> Maharashtra, 416005
             </li>
             <li>
               <b>Phone: </b>
@@ -26,7 +26,7 @@ export const Footer = () => {
             </li>
             <li>
               <b>Email: </b>
-              <a href="mailto:someone@example.com">Support@supercloud.com</a>
+              <a href="mailto:someone@example.com">support@supercloud.com</a>
             </li>
           </ul>
           <ul className="ul-social">
