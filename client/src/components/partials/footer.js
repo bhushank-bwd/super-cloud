@@ -9,6 +9,7 @@ import {
   faFacebookF,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom";
 export const Footer = () => {
   return (
     <div className="footer p-2">
@@ -22,11 +23,13 @@ export const Footer = () => {
             </li>
             <li>
               <b>Phone: </b>
-              <a href="tel:+4733378901">+47 333 78 901</a>
+              <Link to="tel:+4733378901">+47 333 78 901</Link>
             </li>
             <li>
               <b>Email: </b>
-              <a href="mailto:someone@example.com">support@supercloud.com</a>
+              <Link to="mailto:someone@example.com">
+                support@supercloud.com
+              </Link>
             </li>
           </ul>
           <ul className="ul-social">
