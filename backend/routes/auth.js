@@ -14,7 +14,7 @@ router.post(
       .isLength({ min: 3 })
       .withMessage("Enter a username(min 3 chars)"),
     body("email", "Enter a valid email address").isEmail(),
-    body("password", "Enter a password(min 5 chars)").isLength({min:5}),
+    body("password", "Enter a password(min 5 chars)").isLength({ min: 5 }),
     body("phoneno", "Enter a valid phone number (8 to 13 digits)").matches(
       /^[0-9]{8,13}$/
     ),
@@ -50,13 +50,20 @@ router.post(
         user: {
           id: user.id,
         },
+        Stack: {
+          expiresIn: "1d", // expires in 1 day(s)
+        },
       };
 
-      console.log("user entry done");
-      return res.status(200).json({ status: true, data: data });
+      const authtoken = jwt.sign(data, JWT_SECRET);
+      status = true;
+      message = "Register successfully";
+      return res.status(200).json({ status, authtoken, message });
     } catch (error) {
       console.log(error.message);
-      return res.status(500).json({ status: false,message:"Something went wrong" });
+      return res
+        .status(500)
+        .json({ status: false, message: "Something went wrong" });
     }
   }
 );
