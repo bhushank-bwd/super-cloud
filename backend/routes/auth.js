@@ -67,4 +67,63 @@ router.post(
     }
   }
 );
+router.post(
+  "/login",
+  [
+    body("username", "Username required").notEmpty(),
+    body("password", "Password required").notEmpty(),
+  ],
+  async (req, res) => {
+    let status = false;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: status,
+        errors: errors.array(),
+        message: "Validation errors",
+      });
+    }
+    try {
+      let user = await User.findOne({
+        $or: [{ username: req.body.username }, { email: req.body.username }],
+      });
+      if (user) {
+        const passwordCompare = await bcrypt.compare(
+          req.body.password,
+          user.password
+        );
+        if (passwordCompare) {
+          const data = {
+            user: {
+              id: user.id,
+            },
+            Stack: {
+              expiresIn: "1d", // expires in 1 day(s)
+            },
+          };
+
+          const authtoken = jwt.sign(data, JWT_SECRET);
+          status = true;
+          message = "Login successfully";
+          return res.status(200).json({ status, authtoken, message });
+        } else {
+          return res.status(400).json({
+            status: status,
+            message: "Password not match",
+          });
+        }
+      } else {
+        return res.status(400).json({
+          status: status,
+          message: "User not found",
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+      return res
+        .status(500)
+        .json({ status: false, message: "Something went wrong" });
+    }
+  }
+);
 module.exports = router;

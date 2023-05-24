@@ -1,0 +1,55 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "super",
+    "dateExported": "2023-05-24T14:47:48.436Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "58d90b3f-bad8-4d10-81e4-067be6e39870",
+            "name": "auth",
+            "containerId": "",
+            "created": "2023-05-21T13:42:01.184Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "3d7c8d47-a7ed-4408-93c3-d7853284e683",
+            "colId": "077725d5-a6d7-48e2-ba26-53e48ae9fab4",
+            "containerId": "58d90b3f-bad8-4d10-81e4-067be6e39870",
+            "name": "create_user",
+            "url": "http://localhost:5000/api/auth/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-05-21T13:42:10.736Z",
+            "modified": "2023-05-24T14:29:45.111Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"abc\",\n  \"email\":\"abc@gmail.com\",\n  \"phoneno\":\"123456789\",\n  \"password\":\"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3fdd7b29-b38a-40e5-8e9c-95459d537597",
+            "colId": "077725d5-a6d7-48e2-ba26-53e48ae9fab4",
+            "containerId": "58d90b3f-bad8-4d10-81e4-067be6e39870",
+            "name": "login_request",
+            "url": "http://localhost:5000/api/auth/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-05-24T14:17:39.885Z",
+            "modified": "2023-05-24T14:36:29.823Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"abc@gmail.com\",\n  \"password\":\"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
