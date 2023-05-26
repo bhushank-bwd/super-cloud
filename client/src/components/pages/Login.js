@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
+import getToken from "../../functions/getCookie";
 
 export const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -9,6 +10,11 @@ export const Login = () => {
     password: "",
   });
   let navigate = useNavigate();
+  useEffect(() => {
+    if (getToken) {
+      navigate("/");
+    }
+  }, [navigate]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${apiUrl}api/auth/login`, {
