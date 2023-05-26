@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+  let navigate = useNavigate();
   const [registerData, setRegisterData] = useState({
     username: "",
     email: "",
@@ -11,7 +14,26 @@ const Register = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(registerData);
+    const response = await fetch(`${apiUrl}api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: registerData.email,
+        password: registerData.password,
+        confirm_password: registerData.confirm_password,
+        phoneno: registerData.mob,
+        username: registerData.username,
+      }),
+    });
+    const json = await response.json();
+    if (json.status) {
+      Cookies.set("token", json.authtoken, { expires: 1 });
+      navigate("/");
+    } else {
+      alert("register error");
+    }
   };
   const onChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
@@ -32,6 +54,7 @@ const Register = () => {
                 name="username"
                 onChange={onChange}
                 value={registerData.username}
+                required
               />
             </div>
             <div className="form-group">
@@ -43,17 +66,19 @@ const Register = () => {
                 name="email"
                 onChange={onChange}
                 value={registerData.email}
+                required
               />
             </div>
             <div className="form-group">
               <label htmlFor="pwd">Phone No:</label>
               <input
-                type="number"
+                type="tel"
                 className="form-control"
                 id="mob"
                 name="mob"
                 onChange={onChange}
                 value={registerData.mob}
+                required
               />
             </div>
             <div className="form-group">
@@ -65,6 +90,7 @@ const Register = () => {
                 name="password"
                 onChange={onChange}
                 value={registerData.password}
+                required
               />
             </div>
 
@@ -77,6 +103,7 @@ const Register = () => {
                 name="confirm_password"
                 onChange={onChange}
                 value={registerData.confirm_password}
+                required
               />
             </div>
             <div className="checkbox">

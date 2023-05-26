@@ -1,17 +1,36 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const [loginData, setRegisterData] = useState({
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const [loginData, setloginData] = useState({
     username: "",
     password: "",
   });
+  let navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(loginData);
+    const response = await fetch(`${apiUrl}api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: loginData.username,
+        password: loginData.password,
+      }),
+    });
+    const json = await response.json();
+    if (json.status) {
+      Cookies.set("token", json.authtoken, { expires: 1 });
+      navigate("/");
+    } else {
+      alert("login error");
+    }
   };
   const onChange = (e) => {
-    setRegisterData({ ...loginData, [e.target.name]: e.target.value });
+    setloginData({ ...loginData, [e.target.name]: e.target.value });
   };
   return (
     <section id="form">
@@ -26,8 +45,10 @@ export const Login = () => {
                 type="text"
                 className="form-control"
                 id="username"
+                name="username"
                 onChange={onChange}
                 value={loginData.username}
+                required
               />
             </div>
             <div className="form-group">
@@ -36,8 +57,10 @@ export const Login = () => {
                 type="password"
                 className="form-control"
                 id="password"
+                name="password"
                 onChange={onChange}
                 value={loginData.password}
+                required
               />
             </div>
 
