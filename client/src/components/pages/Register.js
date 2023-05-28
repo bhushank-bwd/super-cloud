@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
+import { useLogin } from "../../context/Login";
 
 const Register = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
   let navigate = useNavigate();
+  const loginState = useLogin();
   useEffect(() => {
     if (getToken()) {
       navigate("/");
@@ -19,24 +20,9 @@ const Register = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${apiUrl}api/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: registerData.email,
-        password: registerData.password,
-        confirm_password: registerData.confirm_password,
-        phoneno: registerData.mob,
-        username: registerData.username,
-      }),
-    });
-    const json = await response.json();
-    if (json.status) {
-      navigate("/login");
-    } else {
-      alert("register error");
+    const response = await loginState.register(registerData);
+    if (response === true) {
+      navigate("/");
     }
   };
   const onChange = (e) => {

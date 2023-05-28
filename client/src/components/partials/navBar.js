@@ -1,18 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { useLogin } from "../../context/Login";
 export const Navbar = () => {
   const loginState = useLogin();
+  console.log(loginState);
   let navigate = useNavigate();
   const handleLogout = () => {
-    Cookies.remove("token");
-    Cookies.remove("userName");
-    loginState.setLoginData({
-      ...loginState.loginData,
-      isLoggedIn: false,
-      loggerName: "",
-    });
+    loginState.logout();
     navigate("/");
   };
   return (
@@ -68,9 +62,7 @@ export const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                {loginState.loginData.isLoggedIn
-                  ? loginState.loginData.loggerName
-                  : "Get Started"}
+                {loginState.loginData.loggerName}
               </Link>
               <ul
                 className="dropdown-menu dropdown-menu-end"
