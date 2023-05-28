@@ -17,3 +17,17 @@ For backend
         a) import useContext, SampleContext
         b) use it as variable like => const sampleState = useContext(SampleContext);
         c) access SampleContext.Provider state/value using sampleState
+
+
+    new simple stemps 
+        a) instead of using 3-a and 3-b 
+            use following 
+                i) in context 
+                export const useSample = ()=>{ 
+                    const sampleState = useContext(SampleContext);
+                    return sampleState;
+                }
+                useSample works as hooks
+                ii) in component 
+                    const sampleState = useSample(); 
+                    access as 3-c

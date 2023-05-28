@@ -1,10 +1,9 @@
 import React from "react";
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LoginContext } from "../../context/Login";
 import Cookies from "js-cookie";
+import { useLogin } from "../../context/Login";
 export const Navbar = () => {
-  const loginState = useContext(LoginContext);
+  const loginState = useLogin();
   let navigate = useNavigate();
   const handleLogout = () => {
     Cookies.remove("token");

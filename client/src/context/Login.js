@@ -1,7 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import getToken from "../functions/getCookie";
 
 export const LoginContext = createContext(null);
+
+export const useLogin = ()=>{
+  const loginState = useContext(LoginContext);
+  return loginState;
+}
 
 export const LoginProvider = (props) => {
   const [loginData, setLoginData] = useState({
