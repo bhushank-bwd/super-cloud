@@ -3,17 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
 import { LoginContext } from "../../context/Login";
 import "react-toastify/dist/ReactToastify.css";
+import { useSite } from "../../context/Site";
 export const Login = () => {
   const loginState = useContext(LoginContext);
+  const siteState = useSite();
+
   const [loginData, setloginData] = useState({
     username: "",
     password: "",
   });
   let navigate = useNavigate();
+  
   useEffect(() => {
+    
     if (getToken()) {
       navigate("/");
     }
+    
+    siteState.setProgress(100);
+    // eslint-disable-next-line
   }, [navigate]);
   const handleSubmit = async (e) => {
     e.preventDefault();
