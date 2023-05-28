@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
+import { LoginContext } from "../../context/Login";
 
 export const Login = () => {
+  const loginState = useContext(LoginContext);
   const apiUrl = process.env.REACT_APP_API_URL;
   const [loginData, setloginData] = useState({
     username: "",
@@ -11,8 +13,8 @@ export const Login = () => {
   });
   let navigate = useNavigate();
   useEffect(() => {
-    if (getToken) {
-      navigate("/");
+    if (getToken()) {
+      navigate('/');
     }
   }, [navigate]);
   const handleSubmit = async (e) => {
@@ -29,7 +31,14 @@ export const Login = () => {
     });
     const json = await response.json();
     if (json.status) {
+     
+
+      loginState.setLoginData({...loginState.loginData,
+        isLoggedIn: true,
+        loggerName: json.userName,
+      });
       Cookies.set("token", json.authtoken, { expires: 1 });
+      Cookies.set("userName", json.userName, { expires: 1 });
       navigate("/");
     } else {
       alert("login error");

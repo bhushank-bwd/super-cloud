@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
 
@@ -7,7 +6,7 @@ const Register = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   let navigate = useNavigate();
   useEffect(() => {
-    if (getToken) {
+    if (getToken()) {
       navigate("/");
     }
   }, [navigate]);
@@ -35,8 +34,7 @@ const Register = () => {
     });
     const json = await response.json();
     if (json.status) {
-      Cookies.set("token", json.authtoken, { expires: 1 });
-      navigate("/");
+      navigate("/login");
     } else {
       alert("register error");
     }

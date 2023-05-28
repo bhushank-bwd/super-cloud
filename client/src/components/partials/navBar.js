@@ -1,6 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginContext } from "../../context/Login";
+import Cookies from "js-cookie";
 export const Navbar = () => {
+  const loginState = useContext(LoginContext);
+  let navigate = useNavigate();
+  const handleLogout = () => {
+    Cookies.remove("token");
+    Cookies.remove("userName");
+    loginState.setLoginData({
+      ...loginState.loginData,
+      isLoggedIn: false,
+      loggerName: "",
+    });
+    navigate("/");
+  };
   return (
     <header className="">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -54,22 +69,38 @@ export const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Get Started
+                {loginState.loginData.isLoggedIn
+                  ? loginState.loginData.loggerName
+                  : "Get Started"}
               </Link>
               <ul
                 className="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdown"
               >
-                <li>
-                  <Link className="dropdown-item" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/register">
-                    Register
-                  </Link>
-                </li>
+                {!loginState.loginData.isLoggedIn ? (
+                  <>
+                    <li>
+                      <Link className="dropdown-item" to="/login">
+                        Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/register">
+                        Register
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <Link
+                      className="dropdown-item"
+                      to="#"
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </Link>
+                  </li>
+                )}
               </ul>
             </li>
           </ul>
