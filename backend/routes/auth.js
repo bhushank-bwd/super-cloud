@@ -108,13 +108,13 @@ router.post(
           message = "Login successfully";
           return res.status(200).json({ status, authtoken, message, userName });
         } else {
-          return res.status(400).json({
+          return res.status(200).json({
             status: status,
             message: "Password not match",
           });
         }
       } else {
-        return res.status(400).json({
+        return res.status(200).json({
           status: status,
           message: "User not found",
         });
@@ -122,7 +122,7 @@ router.post(
     } catch (error) {
       console.log(error.message);
       return res
-        .status(500)
+        .status(200)
         .json({ status: false, message: "Something went wrong" });
     }
   }

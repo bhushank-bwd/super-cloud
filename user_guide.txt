@@ -31,3 +31,6 @@ For backend
                 ii) in component 
                     const sampleState = useSample(); 
                     access as 3-c
+
+4) use toaster
+    a) npm install --save react-toastify or npm i react-toastify@4.1

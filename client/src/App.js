@@ -4,12 +4,14 @@ import { Login } from "./components/pages/Login";
 import { Footer } from "./components/partials/footer";
 import { Navbar } from "./components/partials/navBar";
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
       <Router>
         <div className="container-fluid">
+          <ToastContainer/>
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
