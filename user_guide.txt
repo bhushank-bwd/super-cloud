@@ -38,3 +38,10 @@ For backend
     a) npm install --save react-toastify or npm i react-toastify@4.1 
 
 5) npm i react-top-loading-bar
+
+6) useEffect 
+    => 2 argument 
+        a) function
+        b) array of dependancy 
+
+        function performs when element in array of dependancy changed

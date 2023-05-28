@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
 import { useLogin } from "../../context/Login";
+import { useSite } from "../../context/Site";
 
 const Register = () => {
   let navigate = useNavigate();
   const loginState = useLogin();
+  const siteState = useSite();
   useEffect(() => {
     if (getToken()) {
       navigate("/");
     }
+    siteState.setProgress(100);
+    // eslint-disable-next-line
   }, [navigate]);
   const [registerData, setRegisterData] = useState({
     username: "",
