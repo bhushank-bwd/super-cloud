@@ -19,7 +19,7 @@ For backend
         c) access SampleContext.Provider state/value using sampleState
 
 
-    new simple stemps 
+    new simple steps 
         a) instead of using 3-a and 3-b 
             use following 
                 i) in context 
@@ -31,6 +31,8 @@ For backend
                 ii) in component 
                     const sampleState = useSample(); 
                     access as 3-c
+
+    check uses of consumer in Context API
 
 4) use toaster
     a) npm install --save react-toastify or npm i react-toastify@4.1 
