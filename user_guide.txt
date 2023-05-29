@@ -48,3 +48,15 @@ For backend
         i) import  useDispatch,useSelector,actions 
         ii)  use selector as normal reducer/redux
         iii) use dispatch(action_name(payload));
+
+5) api in reduxjs toolkit 
+    a) in reducer 
+        i) add import createAsyncThunk
+        ii) create action using createAsyncThunk
+        iii) add extraReducers
+        iv) add cases in it
+        v) assign apprppriate data by cas wise
+    
+    b) in component 
+        i) dispatch(API_NAME(args))
+        ii) for using second action use dispatch(API_NAME(args)).then(function) & catch

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { stepLogin } from "../../redux_toolkit/slices/loginSlice";
 import { setProgress } from "../../redux_toolkit/slices/siteSettingSlice";
-
+import { loginAPI } from "../../redux_toolkit/slices/loginSlice";
 export const Login = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
   const dispatch = useDispatch();
+  const { loginInfo } = useSelector((state) => state);
   const [loginData, setloginData] = useState({
     username: "",
     password: "",
@@ -18,32 +18,24 @@ export const Login = () => {
     if (getToken("token")) {
       navigate("/");
     }
-    dispatch(setProgress( 100 ));
+    dispatch(setProgress(100));
     // eslint-disable-next-line
   }, [navigate]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${apiUrl}api/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: loginData.username,
-        password: loginData.password,
-      }),
-    });
-    const json = await response.json();
-    if (json.status) {
-      const userName = json.userName;
-      const payload = { userName: userName };
-      dispatch(stepLogin(payload));
-      Cookies.set("token", json.authtoken, { expires: 1 });
-      Cookies.set("userName", userName, { expires: 1 });
-      navigate("/");
-    } else {
-      alert("login error");
-    }
+    dispatch(loginAPI(loginData))
+      .then(() => {
+        const json = loginInfo.data;
+        const userName = json.userName;
+        const payload = { userName: userName };
+        dispatch(stepLogin(payload));
+        Cookies.set("token", json.authtoken, { expires: 1 });
+        Cookies.set("userName", userName, { expires: 1 });
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
   const onChange = (e) => {
     setloginData({ ...loginData, [e.target.name]: e.target.value });
@@ -83,7 +75,18 @@ export const Login = () => {
             <div className="form-group">
               <label htmlFor="pwd"></label>
               <button type="submit" className="btn btn-primary">
-                Submit
+                {loginInfo.isLoading ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Loading...
+                  </>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </div>
             <small>
