@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
-const getToken = () => {
-  const token = Cookies.get('token');
+const getToken = (key) => {
+  const token = Cookies.get(key);
 
   // Check if a token exists
   if (token) {

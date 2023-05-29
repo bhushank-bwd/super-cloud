@@ -1,7 +1,8 @@
 import { createStore } from "redux";
+import getToken from "../functions/getCookie";
 const initialState = {
-  isLoggedIn: false,
-  loggerName: "Get Started",
+  isLoggedIn: getToken("token") ? true : false,
+  loggerName: getToken("userName") ? getToken("userName") : "Get Started",
 };
 const loginReducer = (state = initialState, action) => {
   switch (action.type) {

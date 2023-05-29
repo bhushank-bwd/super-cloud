@@ -14,7 +14,7 @@ export const Login = () => {
   });
   let navigate = useNavigate();
   useEffect(() => {
-    if (getToken()) {
+    if (getToken('token')) {
       navigate("/");
     }
   }, [navigate]);

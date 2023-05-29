@@ -7,7 +7,7 @@ const Register = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   let navigate = useNavigate();
   useEffect(() => {
-    if (getToken) {
+    if (getToken('token')) {
       navigate("/");
     }
   }, [navigate]);
