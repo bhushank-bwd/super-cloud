@@ -3,10 +3,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 export const Navbar = () => {
-  const loginState = useSelector((state) => state);
+  const {loginInfo} = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(loginState);
   const logout = () => {
     Cookies.remove("token");
     Cookies.remove("userName");
@@ -66,13 +65,13 @@ export const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                {loginState.loggerName}
+                {loginInfo.loggerName}
               </Link>
               <ul
                 className="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdown"
               >
-                {!loginState.isLoggedIn ? (
+                {!loginInfo.isLoggedIn ? (
                   <>
                     <li>
                       <Link className="dropdown-item" to="/login">

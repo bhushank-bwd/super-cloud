@@ -1,4 +1,3 @@
-import { createStore } from "redux";
 import getToken from "../functions/getCookie";
 const initialState = {
   isLoggedIn: getToken("token") ? true : false,
@@ -22,4 +21,4 @@ const loginReducer = (state = initialState, action) => {
       return state;
   }
 };
-export const store = createStore(loginReducer);
+export default loginReducer;

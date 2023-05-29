@@ -36,7 +36,7 @@ export const Login = () => {
       const payload = {userName:userName};
       dispatch({ type: 'LOGIN', payload: payload });
       Cookies.set("token", json.authtoken, { expires: 1 });
-      Cookies.set("username", userName, { expires: 1 });
+      Cookies.set("userName", userName, { expires: 1 });
       navigate("/");
     } else {
       alert("login error");
