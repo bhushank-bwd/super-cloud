@@ -3,4 +3,28 @@ For backend
 2) Install the dependencies you need, such as mongodb, express, cors, and dotenv, mongoose@6.10.0, cors,express-validator,bcryptjs, jsonwebtoken
 
 3) redux 
-    => npm install redux & react-redux
+    a) npm install redux & react-redux
+    b) Create Sample1 and Sample2 Reducer
+        i) add initial state and reducer with action(using switch case)
+        ii) export reducer
+    c) create store.js file 
+        1) import createStore, configureStore and other all reducer 
+        2) create rootReducer using 
+            const rootReducer = combineReducers({
+                sample1:Sample1Reducer,
+                sample2:Sample2Reducer,
+                ...
+            });
+            and export it 
+    d) index.js 
+        i) import Provider and store(from store.js)
+        ii) wrap app with Provider(with store)
+    e) in component
+        i) import useDispatch and useSelector
+        ii) fetch state using
+            const {sample1,sample2} = useSelector((state) => state);
+            use state via sample1.state
+        iii) fetch action using 
+                => const dispatch = useDispatch();
+            use action 
+                => dispatch({ type: "ANY_ACTION_FROM_ANY_REDUCER", payload: payload});
