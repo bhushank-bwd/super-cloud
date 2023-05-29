@@ -1,6 +1,18 @@
+import Cookies from "js-cookie";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 export const Navbar = () => {
+  const loginState = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  console.log(loginState);
+  const logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("userName");
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
   return (
     <header className="">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -54,22 +66,32 @@ export const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Get Started
+                {loginState.loggerName}
               </Link>
               <ul
                 className="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdown"
               >
-                <li>
-                  <Link className="dropdown-item" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/register">
-                    Register
-                  </Link>
-                </li>
+                {!loginState.isLoggedIn ? (
+                  <>
+                    <li>
+                      <Link className="dropdown-item" to="/login">
+                        Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/register">
+                        Register
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <Link className="dropdown-item" to="#" onClick={logout}>
+                      Log out
+                    </Link>
+                  </li>
+                )}
               </ul>
             </li>
           </ul>

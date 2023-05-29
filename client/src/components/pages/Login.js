@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
+import { useDispatch } from "react-redux";
+
 
 export const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
+  const dispatch = useDispatch();
   const [loginData, setloginData] = useState({
     username: "",
     password: "",
   });
   let navigate = useNavigate();
   useEffect(() => {
-    if (getToken) {
+    if (getToken()) {
       navigate("/");
     }
   }, [navigate]);
@@ -29,7 +32,11 @@ export const Login = () => {
     });
     const json = await response.json();
     if (json.status) {
+      const userName = json.userName;
+      const payload = {userName:userName};
+      dispatch({ type: 'LOGIN', payload: payload });
       Cookies.set("token", json.authtoken, { expires: 1 });
+      Cookies.set("username", userName, { expires: 1 });
       navigate("/");
     } else {
       alert("login error");

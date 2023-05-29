@@ -103,9 +103,10 @@ router.post(
           };
 
           const authtoken = jwt.sign(data, JWT_SECRET);
+          const userName = user.username;
           status = true;
           message = "Login successfully";
-          return res.status(200).json({ status, authtoken, message });
+          return res.status(200).json({ status, authtoken, message,userName });
         } else {
           return res.status(400).json({
             status: status,
