@@ -2,14 +2,15 @@ import Cookies from "js-cookie";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { stepLogout } from "../../redux_toolkit/slices/loginSlice";
 export const Navbar = () => {
-  const {loginInfo} = useSelector((state) => state);
+  const { loginInfo} = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logout = () => {
     Cookies.remove("token");
     Cookies.remove("userName");
-    dispatch({ type: "LOGOUT" });
+    dispatch(stepLogout());
     navigate("/");
   };
   return (

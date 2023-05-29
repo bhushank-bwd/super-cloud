@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
+import { useDispatch } from "react-redux";
+import { setProgress } from "../../redux_toolkit/slices/siteSettingSlice";
 
 const Register = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (getToken('token')) {
+    if (getToken("token")) {
       navigate("/");
     }
+    dispatch(setProgress(100));
+    // eslint-disable-next-line
   }, [navigate]);
   const [registerData, setRegisterData] = useState({
     username: "",

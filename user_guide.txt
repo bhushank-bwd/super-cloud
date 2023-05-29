@@ -8,7 +8,7 @@ For backend
         i) add initial state and reducer with action(using switch case)
         ii) export reducer
     c) create store.js file 
-        1) import createStore, configureStore and other all reducer 
+        1) import createStore, combineReducers and other all reducer 
         2) create rootReducer using 
             const rootReducer = combineReducers({
                 sample1:Sample1Reducer,
@@ -17,7 +17,7 @@ For backend
             });
             and export it 
     d) index.js 
-        i) import Provider and store(from store.js)
+        i) import Provider and store(from redux/store.js)
         ii) wrap app with Provider(with store)
     e) in component
         i) import useDispatch and useSelector
@@ -28,3 +28,23 @@ For backend
                 => const dispatch = useDispatch();
             use action 
                 => dispatch({ type: "ANY_ACTION_FROM_ANY_REDUCER", payload: payload});
+
+4) reduxjs toolkit 
+    a) npm install @reduxjs/toolkit
+    b) src\redux_toolkit\store.js
+        i) import configureStore, reducer(from slices folder)
+        ii) create store using above one steps
+
+    c) client\src\redux_toolkit\slices\loginSlice.js
+        i) import createSlice
+        ii) create slice using name,initialstate,reducers and export sile.reducers
+        iii)  export slice action
+
+    d) index.js 
+        i) import Provider and store(from redux_toolkit/store.js)
+        ii) wrap app with Provider(with store)
+
+    e) in component 
+        i) import  useDispatch,useSelector,actions 
+        ii)  use selector as normal reducer/redux
+        iii) use dispatch(action_name(payload));

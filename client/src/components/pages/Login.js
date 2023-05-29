@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
 import { useDispatch } from "react-redux";
-
+import { stepLogin } from "../../redux_toolkit/slices/loginSlice";
+import { setProgress } from "../../redux_toolkit/slices/siteSettingSlice";
 
 export const Login = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -14,9 +15,11 @@ export const Login = () => {
   });
   let navigate = useNavigate();
   useEffect(() => {
-    if (getToken('token')) {
+    if (getToken("token")) {
       navigate("/");
     }
+    dispatch(setProgress( 100 ));
+    // eslint-disable-next-line
   }, [navigate]);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +36,8 @@ export const Login = () => {
     const json = await response.json();
     if (json.status) {
       const userName = json.userName;
-      const payload = {userName:userName};
-      dispatch({ type: 'LOGIN', payload: payload });
+      const payload = { userName: userName };
+      dispatch(stepLogin(payload));
       Cookies.set("token", json.authtoken, { expires: 1 });
       Cookies.set("userName", userName, { expires: 1 });
       navigate("/");
