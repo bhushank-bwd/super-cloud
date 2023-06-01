@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "super",
-    "dateExported": "2023-05-24T14:47:48.436Z",
+    "dateExported": "2023-06-01T15:44:34.439Z",
     "version": "1.1",
     "folders": [
         {
@@ -10,6 +10,13 @@
             "containerId": "",
             "created": "2023-05-21T13:42:01.184Z",
             "sortNum": 10000
+        },
+        {
+            "_id": "fd7e2b0a-064e-43be-b2a5-bf6dc170db49",
+            "name": "public",
+            "containerId": "",
+            "created": "2023-06-01T15:24:32.268Z",
+            "sortNum": 20000
         }
     ],
     "requests": [
@@ -41,12 +48,31 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2023-05-24T14:17:39.885Z",
-            "modified": "2023-05-24T14:36:29.823Z",
+            "modified": "2023-05-29T06:42:23.110Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\":\"abc@gmail.com\",\n  \"password\":\"123456\"\n}",
+                "raw": "{\n  \"username\":\"bhushank\",\n  \"password\":\"Silo@1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4cd4af26-056b-4aaa-a6d4-1ac48ceec2eb",
+            "colId": "077725d5-a6d7-48e2-ba26-53e48ae9fab4",
+            "containerId": "fd7e2b0a-064e-43be-b2a5-bf6dc170db49",
+            "name": "subscribe",
+            "url": "http://localhost:5000/api/public/subscribe",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-06-01T15:24:46.608Z",
+            "modified": "2023-06-01T15:25:25.680Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\":\"abc@gmail.com\"\n}",
                 "form": []
             },
             "tests": []
