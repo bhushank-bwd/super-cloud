@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import getToken from "../../functions/getCookie";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setProgress } from "../../redux_toolkit/slices/siteSettingSlice";
+import { registernAPI } from "../../redux_toolkit/slices/loginSlice";
 
 const Register = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const registerAPIData = useSelector(
+    (state) => state.loginInfo.registerAPIData
+  );
   let navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -16,6 +18,18 @@ const Register = () => {
     dispatch(setProgress(100));
     // eslint-disable-next-line
   }, [navigate]);
+  useEffect(() => {
+    if (registerAPIData) {
+      const json = registerAPIData;
+      if (json.status) {
+        console.log(json.message);
+        navigate("/");
+      } else {
+        console.log(json.message);
+      }
+    }
+    // eslint-disable-next-line
+  }, [registerAPIData]);
   const [registerData, setRegisterData] = useState({
     username: "",
     email: "",
@@ -25,26 +39,7 @@ const Register = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${apiUrl}api/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: registerData.email,
-        password: registerData.password,
-        confirm_password: registerData.confirm_password,
-        phoneno: registerData.mob,
-        username: registerData.username,
-      }),
-    });
-    const json = await response.json();
-    if (json.status) {
-      Cookies.set("token", json.authtoken, { expires: 1 });
-      navigate("/");
-    } else {
-      alert("register error");
-    }
+    dispatch(registernAPI(registerData));
   };
   const onChange = (e) => {
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });

@@ -21,21 +21,29 @@ export const Login = () => {
     dispatch(setProgress(100));
     // eslint-disable-next-line
   }, [navigate]);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(loginAPI(loginData))
-      .then(() => {
-        const json = loginInfo.data;
+
+  const loginAPIData = useSelector((state) => state.loginInfo.loginAPIData);
+
+  useEffect(() => {
+    if (loginAPIData) {
+      const json = loginAPIData;
+      if (json.status) {
         const userName = json.userName;
         const payload = { userName: userName };
         dispatch(stepLogin(payload));
         Cookies.set("token", json.authtoken, { expires: 1 });
         Cookies.set("userName", userName, { expires: 1 });
         navigate("/");
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
+      } else {
+        console.log(json.message);
+      }
+    }
+    // eslint-disable-next-line
+  }, [loginAPIData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(loginAPI(loginData));
   };
   const onChange = (e) => {
     setloginData({ ...loginData, [e.target.name]: e.target.value });

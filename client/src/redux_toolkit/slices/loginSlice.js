@@ -16,14 +16,35 @@ export const loginAPI = createAsyncThunk("loginAPI", async (loginData) => {
   const jsonData = await response.json();
   return jsonData;
 });
-
+export const registernAPI = createAsyncThunk(
+  "registernAPI",
+  async (registerData) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const response = await fetch(`${apiUrl}api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: registerData.email,
+        password: registerData.password,
+        confirm_password: registerData.confirm_password,
+        phoneno: registerData.mob,
+        username: registerData.username,
+      }),
+    });
+    const jsonData = await response.json();
+    return jsonData;
+  }
+);
 const loginSlice = createSlice({
   name: "Login",
   initialState: {
     isLoggedIn: getToken("token") ? true : false,
     loggerName: getToken("userName") ? getToken("userName") : "Get Started",
     isLoading: false,
-    data: null,
+    loginAPIData: null,
+    registerAPIData: null,
     isError: null,
   },
   reducers: {
@@ -31,14 +52,20 @@ const loginSlice = createSlice({
       return {
         ...state,
         isLoggedIn: true,
+        loginData: null,
         loggerName: action.payload.userName,
+        registerAPIData: null,
+        isLoading: false,
       };
     },
     stepLogout: (state, action) => {
       return {
         ...state,
         isLoggedIn: false,
+        loginAPIData: null,
         loggerName: "Get Started",
+        registerAPIData: null,
+        isLoading: false,
       };
     },
   },
@@ -48,11 +75,24 @@ const loginSlice = createSlice({
     });
     builder.addCase(loginAPI.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload;
+      state.registerAPIData = null;
+      state.loginAPIData = action.payload;
     });
     builder.addCase(loginAPI.rejected, (state, action) => {
       state.isError = true;
-      console.log(action.payload);
+      state.isLoading = false;
+    });
+    builder.addCase(registernAPI.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(registernAPI.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.registerAPIData = action.payload;
+      state.loginAPIData = null;
+    });
+    builder.addCase(registernAPI.rejected, (state, action) => {
+      state.isError = true;
+      state.isLoading = false;
     });
   },
 });
