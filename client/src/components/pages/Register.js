@@ -4,6 +4,7 @@ import getToken from "../../functions/getCookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setProgress } from "../../redux_toolkit/slices/siteSettingSlice";
 import { registernAPI } from "../../redux_toolkit/slices/loginSlice";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const registerAPIData = useSelector(
@@ -22,10 +23,10 @@ const Register = () => {
     if (registerAPIData) {
       const json = registerAPIData;
       if (json.status) {
-        console.log(json.message);
+        toast.success(json.message);
         navigate("/");
       } else {
-        console.log(json.message);
+        toast.error(json.message);
       }
     }
     // eslint-disable-next-line

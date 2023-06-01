@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { stepLogin } from "../../redux_toolkit/slices/loginSlice";
 import { setProgress } from "../../redux_toolkit/slices/siteSettingSlice";
 import { loginAPI } from "../../redux_toolkit/slices/loginSlice";
+import { toast } from "react-toastify";
+
 export const Login = () => {
   const dispatch = useDispatch();
   const { loginInfo } = useSelector((state) => state);
@@ -33,9 +35,10 @@ export const Login = () => {
         dispatch(stepLogin(payload));
         Cookies.set("token", json.authtoken, { expires: 1 });
         Cookies.set("userName", userName, { expires: 1 });
+        toast.success(json.message);
         navigate("/");
       } else {
-        console.log(json.message);
+        toast.error(json.message);
       }
     }
     // eslint-disable-next-line
