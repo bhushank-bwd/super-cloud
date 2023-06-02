@@ -19,7 +19,6 @@ export const Footer = () => {
   const subscribeAPIData = useSelector(
     (state) => state.siteSettings.subscribeAPIData
   );
-  console.log(subscribeAPIData);
   const onChange = (e) => {
     setSubscribeEmail(e.target.value);
   };
@@ -28,7 +27,6 @@ export const Footer = () => {
     if (subscribeAPIData) {
       const json = subscribeAPIData;
       setSubscribeEmail("");
-      console.log(json);
       if (json.status) {
         toast.success(json.message);
         setTimeout(() => {
