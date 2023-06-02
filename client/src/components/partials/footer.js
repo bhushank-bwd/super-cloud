@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {} from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +9,41 @@ import {
   faFacebookF,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { subscribeAPI } from "../../redux_toolkit/slices/siteSettingSlice";
+import { toast } from "react-toastify";
 export const Footer = () => {
+  const [subscribeEmail, setSubscribeEmail] = useState("");
+  const dispatch = useDispatch();
+  const subscribeAPIData = useSelector(
+    (state) => state.siteSettings.subscribeAPIData
+  );
+  console.log(subscribeAPIData);
+  const onChange = (e) => {
+    setSubscribeEmail(e.target.value);
+  };
+  let navigate = useNavigate();
+  useEffect(() => {
+    if (subscribeAPIData) {
+      const json = subscribeAPIData;
+      setSubscribeEmail("");
+      console.log(json);
+      if (json.status) {
+        toast.success(json.message);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      } else {
+        toast.error(json.message);
+      }
+    }
+    // eslint-disable-next-line
+  }, [subscribeAPIData]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(subscribeAPI(subscribeEmail));
+  };
   return (
     <div className="footer p-2">
       <div className="row">
@@ -99,20 +132,27 @@ export const Footer = () => {
         <div className="col-md-3 subscribe">
           <h4>Subscribe us</h4>
           <div className="input-group mb-3 p-2 mt-4">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="firstname@email.com"
-              aria-label="firstname@email.com"
-              aria-describedby="button-addon2"
-            />
-            <button
-              className="btn btn-primary"
-              type="button"
-              id="button-addon2"
-            >
-              Subscribe Us
-            </button>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                className="form-control"
+                placeholder="firstname@email.com"
+                aria-label="firstname@email.com"
+                aria-describedby="button-addon2"
+                name="subscribeEmail"
+                id="subscribeEmail"
+                value={subscribeEmail}
+                onChange={onChange}
+                required
+              />
+              <button
+                className="btn btn-primary"
+                type="submit"
+                id="button-addon2"
+              >
+                Subscribe Us
+              </button>
+            </form>
           </div>
         </div>
       </div>
